@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:band_names_app/models/ban.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +121,10 @@ class _CustomBand extends StatelessWidget {
         padding: const EdgeInsets.only(left: 8),
         alignment: Alignment.centerLeft,
         color: Colors.red,
-        child: const Text('Delete Band', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        child: const Text(
+          'Delete Band',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
       child: ListTile(
         leading: CircleAvatar(child: Text(band.name.substring(0, 2))),
