@@ -6,27 +6,33 @@ enum ServerStatus { online, offline, connecting }
 class SocketService with ChangeNotifier {
   ServerStatus _serverStatus = ServerStatus.connecting;
   ServerStatus get serverStatus => _serverStatus;
+  late IO.Socket _socket;
+  IO.Socket get socket => _socket;
+
+
+  Function get emit => _socket.emit;
+
 
   SocketService() {
-    initConfig();
+    _initConfig();
   }
 
-  void initConfig() {
-    IO.Socket socket = IO.io('http://192.168.1.11:3000', {
+  void _initConfig() {
+    _socket = IO.io('http://192.168.100.48:3000', {
       'transports': ['websocket'],
       'autoConnect': true,
     });
-    socket.onConnect((_) {
+    _socket.onConnect((_) {
+      print('connect');
       _serverStatus = ServerStatus.online;
       notifyListeners();
     });
-    socket.onDisconnect((_) {
-
+    _socket.onDisconnect((_) {
       _serverStatus = ServerStatus.offline;
       notifyListeners();
     });
-    
-    socket.on('new-message', (dynamic payload) {
+
+    _socket.on('new-message', (dynamic payload) {
       print('Nuevo Mensaje');
       print('Nombre: ${payload['nombre']}');
       print('Mensaje: ${payload['message']}');

@@ -9,4 +9,10 @@ class Band {
     name: obj['name'] ?? '',
     votes: obj['votes'] ?? 0,
   );
+
+  Map<String, dynamic> get to => {
+    'id': id,
+    'name': name,
+    'votes': votes,
+  };
 }
